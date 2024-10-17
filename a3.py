@@ -175,8 +175,8 @@ def year_by_title(matches: List[str]) -> List[int]:
     for movie in movie_db:
         if get_title(movie) == movie_title:
             result.append(get_year(movie))
-        break 
-        return result
+            break 
+            return result
 
 
 def title_by_actor(matches: List[str]) -> List[str]:
@@ -291,6 +291,15 @@ if __name__ == "__main__":
         ["jaws"]
     ), "failed title_by_director test"
 
+    assert isinstance(director_by_title(["jaws 2 "]), list), "director_by_title not returning a list"
+    assert sorted(director_by_title(["jaws 2"])) == sorted(
+        ["Jeannot Szwarc"]
+    ), "failed director_by_title test"
+
+    assert isinstance(title_by_director(["Jeannot Szwarc"]), list), "title_by_director not returning a list"
+    assert sorted(title_by_director([" Jeannot Szwarc"])) == sorted(
+        ["jaws 2"]
+    ), "failed title_by_director test"
     # assert isinstance(actors_by_title(["jaws"]), list), "actors_by_title not returning a list"
     # assert sorted(actors_by_title(["jaws"])) == sorted(
     #     [
@@ -313,12 +322,16 @@ if __name__ == "__main__":
         ["citizen kane", "othello"]
     ), "failed title_by_actor test"
     
-    
+ 
     # assert sorted(search_pa_list(["hi", "there"])) == sorted(
     #     ["I don't understand"]
     # ), "failed search_pa_list test 1"
     assert sorted(search_pa_list(["who", "directed", "jaws"])) == sorted(
         ["steven spielberg"]
+    ), "failed search_pa_list test 2"
+
+    assert sorted(search_pa_list(["who", "directed", "jaws 2"])) == sorted(
+        ["Jeannot Szwarc"]
     ), "failed search_pa_list test 2"
     assert sorted(
         search_pa_list(["what", "movies", "were", "made", "in", "2020"])
